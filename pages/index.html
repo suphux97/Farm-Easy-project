@@ -129,7 +129,7 @@
         let desc = document.getElementById("desc").value
         let email =JSON.parse(localStorage.getItem("user"))?.email
         console.log("submitting this data", title, desc)
-         let resp = await postData("/addnote", {title, desc, email})
+        postData("/addnote", {title, desc, email})
          if(resp.success){
           alert("Note created.")
           let title = document.getElementById("title").value

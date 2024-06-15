@@ -10,9 +10,9 @@ const port = 3000
 
 
 
-mongoose.connect('mongodb://souph:Yuu%400759258320@localhost:27017/?directConnection=true&tls=true&tlsInsecure=true&tlsAllowInvalidHostnames=true&tlsAllowInvalidCertificates=true', function(error){
+mongoose.connect('mongodb://souph:Yuu%400759258320@localhost:27017/?tlsAllowInvalidHostnames=true&tlsAllowInvalidCertificates=true&authMechanism=DEFAULT&tls=true', 
   console.log("success")
-})
+)
 
 
 

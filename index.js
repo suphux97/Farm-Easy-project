@@ -10,14 +10,9 @@ const port = 3000
 
 
 
-mongoose.connect('mongodb://souph:Yuu%400759258320@localhost:27017/?tlsAllowInvalidHostnames=true&tlsAllowInvalidCertificates=true&authMechanism=DEFAULT&tls=true', 
+mongoose.connect('mongodb://souph:Yuu%400759258320@localhost:27017/?directConnection=true&tls=true&tlsAllowInvalidCertificates=true&tlsAllowInvalidHostnames=true', 
   console.log("success")
 )
-
-
-
-
-
 
 
 
@@ -36,9 +31,11 @@ app.get('/signUp', (req, res) => {
 })
 
 // End points for APIs
-app.post('/getnotes', (req, res) => {
-let user = User.create(req.body)
-  res.status(200).json({success: true, user: user})
+app.post('/getnotes', async (req, res) => {
+  let notes = await Note.find({email: req.body.email})
+
+  res.status(200).json({success: false, notes})
+  
 })
 
 app.post('/Login', async(req, res) => {
@@ -57,16 +54,18 @@ app.post('/Login', async(req, res) => {
 
 app.post('/SingUp', async(req, res) => {
   const {userToken } = req.body
-  
   console.log(req.body)
   let user = await User.create(req.body)
-  res.sendFile("pages/about.html", {root: __dirname})
+  res.status(200).json({success: true, user: user})
+  
+  
 })
 
 app.post('/addnote', async (req, res) => {
   const {userToken } = req.body
   let note = await Note.create(req.body)
   res.status(200).json({success: true, note})
+ 
 })
 
 app.post('/deletenote', (req, res) => {
@@ -76,7 +75,7 @@ app.post('/deletenote', (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`)
+  console.log(`Example app listening on port http://localLhost:${port}`)
 }) 
 
   

@@ -90,16 +90,52 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"crossorigin="anonymous"></script>
 
     <script>
-      async function postData(url = '', data = {}){
+      async function postData(url = '', data = {}) {
         const response= await fetch(url, {
           method: 'POST',
+          mode:'cors',
+          cache:'no-cache',
+          credentials:'same-origin', // include same origin, omit
+
           headers: {
             'content-Type': 'application/json'
 
           },
+          redirect: 'follow', // manual follow erro
+           referrerPolicy: 'no-referrer',
           body: JSON.stringify(data)
+         
         });
-        let rdata = await response.json()
+
+
+
+  let result;
+  try {
+  
+
+    const rdata= await response.json(); // read the raw text response
+    console.log('Response text:', text); // debug output
+    result = JSON.parse(text); // attempt to parse as JSON
+  } catch (error) {
+    console.error('Error parsing JSON:', error);
+    throw new Error('Invalid JSON response');
+  }
+
+  return result; // parses JSON response into native JavaScript objects
+}
+
+document.querySelector('button').addEventListener('click', async () => {
+  try {
+    const data = await postData('https://example.com/submit', { answer: 42 });
+    console.log('Success:', data);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
+
+
+
+        /*let rdata = await response.json()
         return rdata
       }
 
@@ -107,17 +143,12 @@
       //fetch notes
       const fetchNotes = ()=>{
           
-
-
-      
-
-
       const user = JSON.parse(localStorage.getItem('user'))
 
       /*if(!user || user.token){
         Window.location ="/Login"
 
-      }*/
+      }
 
    if (user && user.email){
     let noteContainer = document.querySelector(".mynote")
@@ -167,7 +198,7 @@
           fetchNotes()
         
         }
-      })
+      })*/
 
     </script>
   </body>

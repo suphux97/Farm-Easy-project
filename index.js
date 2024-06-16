@@ -4,6 +4,7 @@ const user = require('./models/user')
 const note = require('./models/note')
 const app = express()
 app.use(express.json())
+
 app.use(express.urlencoded({extended: false}))
 const port = 3000
 
@@ -26,8 +27,11 @@ app.get('/login', (req, res) => {
   res.sendFile("pages/login.html", {root: __dirname})
 })
 
-app.get('/signUp', (req, res) => {
-  res.sendFile("pages/signUp.html", {root: __dirname})
+app.get("/pages/signUp.html",  (req, res) => {
+  res.sendFile(path.join( __dirname, 'pages', 'login.html'));
+});
+app.listen(3000, () =>{
+  console.log("server is running on port 3000")
 })
 
 // End points for APIs

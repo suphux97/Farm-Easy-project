@@ -69,10 +69,15 @@
       async function postData(url = '', data = {}){
         const response = await fetch(url, {
           method: 'POST',
+          mode:'cors',
+          cache:'no-cache',
+          credentials:'same-origin', // include same origin, omit
           headers: {
             'content-Type': 'application/json'
-
+           
           },
+          redirect: 'follow', // manual follow erro
+           referrerPolicy: 'no-referrer',
           body: JSON.stringify(data)
         });
 

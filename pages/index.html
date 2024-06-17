@@ -91,7 +91,7 @@
 
     <script>
       async function postData(url = '', data = {}) {
-        const response= await fetch(url, {
+        const response= await fetch('http://127.0.0.1:5500/addnote', {
           method: 'POST',
           mode:'cors',
           cache:'no-cache',
@@ -101,41 +101,12 @@
             'content-Type': 'application/json'
 
           },
-          redirect: 'follow', // manual follow erro
-           referrerPolicy: 'no-referrer',
+          
           body: JSON.stringify(data)
          
         });
 
-
-
-  let result;
-  try {
-  
-
-    const rdata= await response.json(); // read the raw text response
-    console.log('Response text:', text); // debug output
-    result = JSON.parse(text); // attempt to parse as JSON
-  } catch (error) {
-    console.error('Error parsing JSON:', error);
-    throw new Error('Invalid JSON response');
-  }
-
-  return result; // parses JSON response into native JavaScript objects
-}
-
-document.querySelector('button').addEventListener('click', async () => {
-  try {
-    const data = await postData('https://example.com/submit', { answer: 42 });
-    console.log('Success:', data);
-  } catch (error) {
-    console.error('Error:', error);
-  }
-});
-
-
-
-        /*let rdata = await response.json()
+        let rdata = await response.text()
         return rdata
       }
 
@@ -145,7 +116,7 @@ document.querySelector('button').addEventListener('click', async () => {
           
       const user = JSON.parse(localStorage.getItem('user'))
 
-      /*if(!user || user.token){
+      if(!user || user.token){
         Window.location ="/Login"
 
       }
@@ -183,6 +154,7 @@ document.querySelector('button').addEventListener('click', async () => {
   }
       fetchNotes()
       // add a click listener for submit
+
       let submit = document.getElementById("submit")
       submit.addEventListener("click", async () =>{
         let title = document.getElementById("title").value
@@ -198,7 +170,7 @@ document.querySelector('button').addEventListener('click', async () => {
           fetchNotes()
         
         }
-      })*/
+      });
 
     </script>
   </body>
